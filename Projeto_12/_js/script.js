@@ -1,5 +1,4 @@
 $(function () {
-
   /*
 
   var frase = 'roberto@gmail.com'
@@ -43,7 +42,7 @@ $(function () {
 
   //Validando formulário
 
-  $('form#form1').submit(function(){
+  $('form#form1').submit(function () {
     var nome = $('input[name=nome]').val()
     var telefone = $('input[name=telefone]').val()
     var email = $('input[name=email]').val()
@@ -51,15 +50,23 @@ $(function () {
     //Contando a quantidade de espaços e os respectivos valores.
     var amount = nome.split(' ').length
     var splitStr = nome.split(' ')
-    if(amount >= 2){
-      for(var i = 0; i < amount; i++){
-        console.log(splitStr[i])
+    if (amount >= 2) {
+      for (var i = 0; i < amount; i++) {
+        if (splitStr[i].match(/^[A-Z]{1}[a-z]{1,}$/)) {
+          console.log('yes')
+        } else {
+          aplicarCampoInvalido($('input[name=nome'))
+          return false
+        }
       }
     } else {
-      console.log("Não bate com a condição Nome Completo!")
+      aplicarCampoInvalido($('input[name=nome]'))
       return false
     }
-
-    return false
   })
+
+  function aplicarCampoInvalido(el) {
+    el.css('border', '2px solid red')
+    el.data('invalido', 'true')
+  }
 })
